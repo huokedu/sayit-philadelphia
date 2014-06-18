@@ -23,3 +23,8 @@ django-pagination
 ### 'post_deploy_actions.bash'
 # xapian-haystack
 # django-haystack
+
+beautifulsoup4
+requests_cache
+
+-e git+https://github.com/mysociety/sayit#egg=django-sayit
