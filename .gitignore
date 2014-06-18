@@ -1,0 +1,3 @@
+*.pyc
+conf/general.yml
+conf/httpd.conf
