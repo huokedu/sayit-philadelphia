@@ -95,6 +95,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'pagination.middleware.PaginationMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'speeches.middleware.InstanceMiddleware',
 )
 
 ROOT_URLCONF = 'sayit_philadelphia.urls'
@@ -123,10 +124,17 @@ INSTALLED_APPS = (
     'django.contrib.humanize',
     'django.contrib.admin',
     'django.contrib.admindocs',
+    'haystack',
     'south',
+    'tastypie',
+    'pagination',
+    'pipeline',
+    'django_select2',
+    'django_bleach',
+    'popit',
+    'popolo',
     'instances',
     'speeches',
-    'pagination',
 )
 
 # Log WARN and above to stderr; ERROR and above by email when DEBUG is False.
@@ -169,4 +177,67 @@ SESSION_COOKIE_HTTPONLY = True
 CSRF_COOKIE_HTTPONLY = True
 
 # Now get the mySociety configuration
+
 from .mysociety import *
+
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.elasticsearch_backend.ElasticsearchSearchEngine',
+        'URL': 'http://127.0.0.1:9200/',
+        'INDEX_NAME': DATABASES['default']['NAME'],
+    },
+}
+HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
+
+# Pipeline
+
+STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
+# You can use e.g. 'pipeline.compressors.yui.YUICompressor' in the two
+# lines below if you install YUI Compressor
+PIPELINE_CSS_COMPRESSOR = None
+PIPELINE_JS_COMPRESSOR = None
+
+PIPELINE_COMPILERS = (
+    'pipeline_compass.compass.CompassCompiler',
+)
+PIPELINE_COMPASS_ARGUMENTS = '-r zurb-foundation'
+
+PIPELINE_CSS = {
+    'sayit-default': {
+        'source_filenames': (
+            'speeches/sass/speeches.scss',
+        ),
+        'output_filename': 'css/speeches.css',
+    },
+}
+
+PIPELINE_JS = {
+    'sayit-default-head': {
+        'source_filenames': (
+            'speeches/js/jquery.js',
+        ),
+        'output_filename': 'js/sayit.head.min.js',
+    },
+    'sayit-default': {
+        'source_filenames': (
+            'speeches/js/foundation/foundation.js',
+            'speeches/js/foundation/foundation.dropdown.js',
+            'speeches/js/speeches.js',
+        ),
+        'output_filename': 'js/sayit.min.js',
+    },
+    'sayit-player': {
+        'source_filenames': (
+            'speeches/mediaelement/mediaelement-and-player.js',
+        ),
+        'output_filename': 'js/sayit.mediaplayer.min.js',
+    },
+    'sayit-upload': {
+        'source_filenames': (
+            'speeches/js/jQuery-File-Upload/js/vendor/jquery.ui.widget.js',
+            'speeches/js/jQuery-File-Upload/js/jquery.iframe-transport.js',
+            'speeches/js/jQuery-File-Upload/js/jquery.fileupload.js',
+        ),
+        'output_filename': 'js/sayit.upload.min.js',
+    },
+}
