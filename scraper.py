@@ -13,9 +13,10 @@ os.environ['DJANGO_SETTINGS_MODULE'] = 'sayit_philadelphia.settings'
 BASE_DIR = os.path.dirname(__file__)
 CACHE_DIR = os.path.join(BASE_DIR, 'data')
 
+from speeches.models import Section
+
 from speeches.utils.scraping import BaseParser, prevnext
 from speeches.utils.scraping import ParserSpeech as Speech
-
 
 class PhilaParser(BaseParser):
     # instance = 'philadelphia'
@@ -122,7 +123,13 @@ class PhilaParser(BaseParser):
             except socket.error:
                 print "SKIPPING {} - error downloading".format(url)
             else:
-                yield {'date': date, 'url': url, 'text': text}
+                yield {
+                    'date': date,
+                    'url': url,
+                    'text': text,
+                    'parent_section_title': (self.committee_name or
+                                             'Council Meetings'),
+                    }
 
     def top_section_title(self, data):
         # FIXME - It's a bad idea to do this on self.committee_name as if
@@ -131,6 +138,14 @@ class PhilaParser(BaseParser):
         body_name = self.committee_name or 'Council meeting'
         return ('%s, %s' %
                 (body_name, data['date'].strftime('%d %B %Y').lstrip('0')))
+
+    def get_parent_section(self, data):
+        return self.get_or_create(
+            Section,
+            instance=self.instance,
+            source_url=data['url'],
+            title=data['parent_section_title'],
+            )
 
     def parse_transcript(self, data):
         print "PARSING %s" % data['url']
