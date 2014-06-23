@@ -180,6 +180,9 @@ CSRF_COOKIE_HTTPONLY = True
 
 from .mysociety import *
 
+# django-bleach configuration
+from .bleach import *
+
 HAYSTACK_CONNECTIONS = {
     'default': {
         'ENGINE': 'haystack.backends.elasticsearch_backend.ElasticsearchSearchEngine',
