@@ -18,6 +18,7 @@ from speeches.models import Section
 from speeches.utils.scraping import BaseParser, prevnext
 from speeches.utils.scraping import ParserSpeech as Speech
 
+
 class PhilaParser(BaseParser):
     # instance = 'philadelphia'
     instance = 'default'
@@ -115,6 +116,8 @@ class PhilaParser(BaseParser):
         for tr in trs:
             tds = tr.findAll('td')
 
+            committee_name = tds[0].font.text.strip()
+
             date = datetime.datetime.strptime(
                 tds[1].font.text.strip(), '%m/%d/%Y').date()
             url = urlparse.urljoin(self.index_url, tds[2].a['href'])
@@ -127,24 +130,21 @@ class PhilaParser(BaseParser):
                     'date': date,
                     'url': url,
                     'text': text,
-                    'parent_section_title': (self.committee_name or
-                                             'Council Meetings'),
+                    'committee_name': committee_name,
                     }
 
     def top_section_title(self, data):
-        # FIXME - It's a bad idea to do this on self.committee_name as if
-        # committees are scraped without giving one, we'll finish up with
-        # everything assumed to be a council meeting.
-        body_name = self.committee_name or 'Council meeting'
-        return ('%s, %s' %
-                (body_name, data['date'].strftime('%d %B %Y').lstrip('0')))
+        return '{committee_name}, {date}'.format(
+            committee_name=data['committee_name'],
+            date=data['date'].strftime('%d %B %Y').lstrip('0'),
+            )
 
     def get_parent_section(self, data):
         return self.get_or_create(
             Section,
             instance=self.instance,
             source_url=data['url'],
-            title=data['parent_section_title'],
+            title=data['committee_name'],
             )
 
     def parse_transcript(self, data):
@@ -200,7 +200,7 @@ class PhilaParser(BaseParser):
 
             # Let's check we haven't lost a line anywhere...
             assert re.match(' *%d(   |$)' % num, line), \
-                    '%s != %s' % (num, line)
+                '%s != %s' % (num, line)
             line = re.sub('^ *%d(   |$)' % num, '', line)
             num += 1
 
