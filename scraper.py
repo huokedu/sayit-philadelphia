@@ -180,7 +180,7 @@ class PhilaParser(BaseParser):
 
             # Start of certificate/index
             if re.match(
-                    ' *\d+ *(CERTIFICATE|C E R T I F I C A T I O N|- - -)$',
+                    ' *\d+ *(CERTIFICATE|C E R T I F I C A T I O N)$',
                     line):
                 state = 'index'
             if state == 'index':
@@ -203,6 +203,10 @@ class PhilaParser(BaseParser):
                 '%s != %s' % (num, line)
             line = re.sub('^ *%d(   |$)' % num, '', line)
             num += 1
+
+            # Ignore line containing only a number and then dashes
+            if re.match('[\s-]*$', line):
+                continue
 
             # Narrative messages
             m = re.match(' +(\(.*\))$', line)
