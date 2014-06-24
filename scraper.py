@@ -3,7 +3,6 @@
 import datetime
 import os
 import re
-import socket
 import urlparse
 
 import bs4
@@ -15,7 +14,7 @@ CACHE_DIR = os.path.join(BASE_DIR, 'data')
 
 from speeches.models import Section
 
-from speeches.utils.scraping import BaseParser, prevnext
+from speeches.utils.scraping import BaseParser, prevnext, ScrapingError
 from speeches.utils.scraping import ParserSpeech as Speech
 
 
@@ -123,7 +122,7 @@ class PhilaParser(BaseParser):
             url = urlparse.urljoin(self.index_url, tds[2].a['href'])
             try:
                 text = self.get_pdf(url)
-            except socket.error:
+            except ScrapingError:
                 print "SKIPPING {} - error downloading".format(url)
             else:
                 yield {
