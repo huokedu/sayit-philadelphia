@@ -164,7 +164,6 @@ class PhilaParser(BaseParser):
         return self.get_or_create(
             Section,
             instance=self.instance,
-            source_url=data['url'],
             title=data['committee_name'],
             )
 
