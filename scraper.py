@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# vim: set fileencoding=utf-8 :
 
 import datetime
 import os
@@ -21,6 +22,27 @@ from speeches.utils.scraping import ParserSpeech as Speech
 class PhilaParser(BaseParser):
     # instance = 'philadelphia'
     instance = 'default'
+    # TODO Fix to go off a stable identifier rather than a name
+    name_fixes = {
+        'Councilwoman Bass': 'Cindy Bass',
+        'Councilwoman Blackwell': 'Jannie L. Blackwell',
+        'Councilwoman Reynolds Brown': 'Blondell Reynolds Brown',
+        'Councilwoman Brown': 'Blondell Reynolds Brown',
+        'Council President Clarke': 'Darrell L. Clarke',
+        'Councilman Goode': 'W. Wilson Goode, Jr.',
+        'Councilman Green': 'Bill Green',
+        'Councilman Greenlee': 'William K. Greenlee',
+        'Councilman Henon': 'Bobby Henon',
+        'Councilman Johnson': 'Kenyatta Johnson',
+        'Councilman Jones': 'Curtis Jones, Jr.',
+        'Councilman Kenney': 'James F. Kenney',
+        'Councilman Oh': 'David Oh',
+        "Councilman O'Brien": "Dennis O'Brien",
+        "Councilman O'Neill": "Brian J. O'Neill",
+        'Councilwoman Sanchez': 'Maria D. Quiñones-Sánchez',
+        'Councilman Squilla': 'Mark Squilla',
+        'Councilwoman Tasco': 'Marian Tasco',
+    }
 
     def _add_parser_options(self):
         super(PhilaParser, self)._add_parser_options()
