@@ -102,6 +102,25 @@ for link in committees:
         else:
             raise Exception, el
 
+# Councillors overall
+organizations['Council'] = {
+    'id': 'city-council',
+    'classification': 'Council',
+    'name': 'Philadelphia City Council',
+    'links': [ { 'url': 'http://philadelphiacitycouncil.net/', 'note': 'Official site' } ],
+}
+for person in people.values():
+    data = {
+        'label': 'Philadelphia City Councillor',
+        'role': 'Councillor',
+        'person_id': person['id'],
+        'organization_id': 'city-council',
+    }
+    if person['id'] == 'bill-green':
+        data['start_date'] = '2008-01-07'
+        data['end_date'] = '2014-02'
+    memberships.append(data)
+
 out = {
     'persons': people.values(),
     'organizations': organizations.values(),

@@ -55,9 +55,14 @@ for person in data['persons']:
 for mship in data['memberships']:
     person = Speaker.objects.get(identifiers__identifier=mship['person_id'])
     org = Organization.objects.get(identifiers__identifier=mship['organization_id'])
-    Membership.objects.get_or_create(
-        label=mship['label'],
-        role=mship['role'],
-        person=person,
-        organization=org,
-    )
+    data = {
+        'label': mship['label'],
+        'role': mship['role'],
+        'person': person,
+        'organization': org,
+    }
+    if 'start_date' in mship:
+        data['start_date'] = mship['start_date']
+    if 'end_date' in mship:
+        data['end_date'] = mship['end_date']
+    Membership.objects.get_or_create(**data)
