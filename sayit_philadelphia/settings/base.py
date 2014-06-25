@@ -191,6 +191,9 @@ HAYSTACK_CONNECTIONS = {
 }
 HAYSTACK_SIGNAL_PROCESSOR = 'haystack.signals.RealtimeSignalProcessor'
 
+# Select2
+AUTO_RENDER_SELECT2_STATICS = False
+
 # Pipeline
 
 STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
