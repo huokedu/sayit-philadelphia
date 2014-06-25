@@ -126,7 +126,6 @@ INSTALLED_APPS = (
     'django.contrib.admindocs',
     'haystack',
     'south',
-    'tastypie',
     'pagination',
     'pipeline',
     'django_select2',

@@ -1,6 +1,10 @@
 # Site
 -e git+https://github.com/mysociety/sayit#egg=django-sayit
 
+PyYAML
+South
+popit-django==0.0.3
+
 # Scrapers
 beautifulsoup4
 requests_cache
