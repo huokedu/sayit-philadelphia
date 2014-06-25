@@ -1,0 +1,36 @@
+{% extends 'speeches/base.html' %}
+{% load i18n %}
+
+{% block title %}{% trans "All Speakers" %}{% endblock %}
+
+{% block content %}
+
+    <div class="page-header">
+        <h1>{% trans "All Speakers" %}</h1>
+    </div>
+
+    <h2>{% trans "Councillors" %}</h2>
+
+    <ul class="speaker-list">
+      {% for speaker in speaker_list_councillor_current %}
+        {% include 'speeches/_speaker_list.html' %}
+      {% endfor %}
+    </ul>
+
+    <h2>{% trans "Previous councillors" %}</h2>
+
+    <ul class="speaker-list">
+      {% for speaker in speaker_list_councillor_previous %}
+        {% include 'speeches/_speaker_list.html' %}
+      {% endfor %}
+    </ul>
+
+    <h2>{% trans "Other Speakers" %}</h2>
+
+    <ul class="speaker-list">
+      {% for speaker in speaker_list_other %}
+        {% include 'speeches/_speaker_list.html' %}
+      {% endfor %}
+    </ul>
+
+{% endblock %}
