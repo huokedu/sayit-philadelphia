@@ -1,0 +1,23 @@
+$image-path: '../speeches/img';
+@import "speeches/sass/speeches";
+
+/* TODO Hmm, bit of a repetition problem. These are the mobile bits of
+   speaker-list/card, which we don't want to change at larger widths
+   (what we really want is element query, not media query) */
+
+.speaker-list-list {
+    @include unstyled-list;
+    float: left;
+    width: 100%;
+}
+.speaker-card-list {
+    border-bottom: 1px solid $colour_light_grey;
+    @include clearfix;
+    @include border-radius(3px);
+    padding: 0.75em 0;
+}
+.speaker-card-list__portrait {
+    height: 48px;
+    width: 48px;
+    margin-right: 0.75em;
+}

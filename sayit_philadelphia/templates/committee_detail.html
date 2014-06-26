@@ -1,4 +1,5 @@
 {% extends 'speeches/base.html' %}
+{% load staticfiles %}
 
 {% block title %}{{ object.name }}{% endblock %}
 
@@ -15,9 +16,18 @@
 
 <div class="small-12 medium-6 columns">
   <h2>Members</h2>
-  <ul>
+  <ul class="speaker-list-list">
     {% for member in members %}
-      <li><a href="{{ member.get_absolute_url }}">{{ member.name }}</a>
+      <li>
+        <a href="{{ member.get_absolute_url }}">
+          <div class="speaker-card-list">
+            <img src="{% if member.image %}
+        {{ member.image }} {% else %} {% static "speeches/i/a.png" %} {% endif %}"
+        style="border-color: #{{ member.colour }}; background-color: #{{ member.colour }};" alt=""  class="speaker-card-list__portrait speaker-portrait round-image speaker-portrait--small">
+            <span class="speaker-card__name">{{ member.name }}</span>
+          </div>
+        </a>
+      </li>
     {% endfor %}
   </ul>
 </div>

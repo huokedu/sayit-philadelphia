@@ -205,14 +205,16 @@ PIPELINE_JS_COMPRESSOR = None
 PIPELINE_COMPILERS = (
     'pipeline_compass.compass.CompassCompiler',
 )
-PIPELINE_COMPASS_ARGUMENTS = '-r zurb-foundation'
+
+import speeches
+PIPELINE_COMPASS_ARGUMENTS = '-I %s -r zurb-foundation' % os.path.join(speeches.__path__[0], 'static')
 
 PIPELINE_CSS = {
     'sayit-default': {
         'source_filenames': (
-            'speeches/sass/speeches.scss',
+            'sass/project.scss',
         ),
-        'output_filename': 'css/speeches.css',
+        'output_filename': 'css/project.css',
     },
 }
 
