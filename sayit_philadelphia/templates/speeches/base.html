@@ -1,0 +1,79 @@
+{% load staticfiles %}{% load url from future %}{% load compressed %}<!DOCTYPE html>
+<html>
+    <head>
+        <title>{% block fulltitle %}{% block title %}{% endblock %} :: SayIt{% endblock %}</title>
+        <meta charset="utf-8">
+
+        {% block extra_headers %}{% endblock %}
+
+        {% block extra_css %}
+            {% compressed_css 'sayit-default' %}
+        {% endblock extra_css %}
+
+        {% compressed_js 'sayit-default-head' %}
+        {% block extra_js_head %}{% endblock %}
+    </head>
+
+    <body id="top">
+
+        <header>
+          <div class="full-page__row">
+            <div class="large-6 columns">
+              <h1><a href="{% url 'speeches:home' %}">OpenPhiladelphia</a></h1>
+            </div>
+            <div class="large-6 columns">
+            <form action="{% url "speeches:haystack_search" %}" method="get" style="margin-top:1em">
+                <div class="search-wrapper">
+                    <input type="search" class="site-search__input" placeholder="Search" name="q"/>
+                    <input type="submit" class="icon-search icon-search" value="Search"/>
+                </div>
+            </form>
+            </div>
+          </div>
+          <div class="full-page__row">
+            <div class="full-page__unit">
+              <ul class="inline-list">
+                <li><a href="{% url 'speeches:home' %}">Home</a></li>
+                <li><a href="{% url 'speeches:speaker-list' %}">Speakers</a></li>
+                <li><a href="/city-council-meeting">City Council meetings</a></li>
+                <li><a href="/committee/education">Education Committee</a></li>
+              </ul>
+            </div>
+          </div>
+        </header>
+
+        <div class="full-page">
+          <div class="full-page__row">
+            <div class="full-page__unit">
+              {% for message in messages %}
+                <div class="alert alert-{{ message.tags }}">
+                  {{ message }}
+                </div>
+              {% endfor %}
+
+              {% block content %}{% endblock %}
+
+            </div>
+          </div>
+        </div>
+
+        <footer>
+          <div class="full-page__row">
+            <div class="full-page__unit">
+              <p>A <a href="http://www.mysociety.org/">mySociety</a> project,
+                using <a href="http://sayit.mysociety.org/">SayIt</a>,
+                a <a href="http://poplus.org/">Poplus</a> component</p>
+            </div>
+          </div>
+        </footer>
+
+        {% compressed_js 'sayit-default' %}
+        {% block extra_js %}{% endblock %}
+        <script>
+          if (typeof $ != 'undefined' && typeof $(document).foundation != 'undefined') {
+            $(document).foundation();
+          }
+        </script>
+
+    </body>
+</html>
