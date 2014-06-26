@@ -155,7 +155,7 @@ class PhilaParser(BaseParser):
                     }
 
     def top_section_title(self, data):
-        return '{committee_name}, {date}'.format(
+        return '{date}'.format(
             committee_name=data['committee_name'],
             date=data['date'].strftime('%d %B %Y').lstrip('0'),
             )
