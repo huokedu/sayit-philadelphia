@@ -93,7 +93,6 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'pagination.middleware.PaginationMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'speeches.middleware.InstanceMiddleware',
 )
@@ -126,7 +125,6 @@ INSTALLED_APPS = (
     'django.contrib.admindocs',
     'haystack',
     'south',
-    'pagination',
     'pipeline',
     'django_select2',
     'django_bleach',
@@ -166,10 +164,7 @@ LOGGING = {
 }
 
 # pagination related settings
-PAGINATION_DEFAULT_PAGINATION = 10
 PAGINATION_DEFAULT_WINDOW = 2
-PAGINATION_DEFAULT_ORPHANS = 2
-PAGINATION_INVALID_PAGE_RAISES_404 = True
 
 # Cookies
 SESSION_COOKIE_HTTPONLY = True
