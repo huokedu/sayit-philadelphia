@@ -1,6 +1,96 @@
 $image-path: '../speeches/img';
 @import "speeches/sass/speeches";
 
+body,
+html {
+    background-color: #f3f3f3;
+}
+
+body {
+    font-family: "Helvetica Neue", Arial, "Helvetica", Helvetica, sans-serif;
+}
+
+.full-page {
+    background-color: #fff;
+    padding-top: 1.5em;
+    padding-bottom: 1.5em;
+}
+
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: bold;
+}
+
+a {
+    color: #E47D0E;
+    &:hover,
+    &:active,
+    &:focus {
+        color: darken(#E47D0E, 10%);
+    }
+}
+
+header {
+    background-color: #fff;
+    padding: 1em 0 1em;
+    a {
+        color: #333;
+        &:hover,
+        &:active,
+        &:focus {
+            color: #3CADE2;
+        }
+    }
+    input[type="search"] {
+        padding: 0.66em;
+        height: auto;
+        margin-bottom: 0;
+    }
+    form {
+        margin-bottom: 0;
+    }
+}
+
+.site-title {
+    font-weight: bold;
+    font-size: 35px;
+    letter-spacing: -0.02em;
+    margin-bottom: 0;
+    margin-top: 0;
+    line-height: 1em;
+    a {
+        background-image: url('../img/logo-highlight.png');
+        background-repeat: no-repeat;
+        background-position: 0 0;
+        padding: 0.25em 0.5em 0.15em;
+        display: inline-block;
+    }
+}
+
+
+.primary-navigation {
+    background-color: #3CADE2;
+    padding: .8em 0;
+    ul {
+        margin-bottom: 0;
+    }
+    a {
+        color: #fff;
+        &:hover,
+        &:active,
+        &:focus {
+            color: #95dcff;
+        }
+    }
+}
+
+footer {
+    background-color: #F3F3F3;
+    padding-top: 2em;
+    padding-bottom: 1em;
+    margin-top: 2em;
+}
+
 /* TODO Hmm, bit of a repetition problem. These are the mobile bits of
    speaker-list/card, which we don't want to change at larger widths
    (what we really want is element query, not media query) */
@@ -20,4 +110,22 @@ $image-path: '../speeches/img';
     height: 48px;
     width: 48px;
     margin-right: 0.75em;
+}
+
+.secondary-button,
+.search-pagination-button,
+.pagination__page-number,
+.speech-navigation__button,
+.speech--narrative {
+    background-color: #F3F3F3;
+    border-color: #e2dfd9;
+}
+
+.speech__content {
+    border-color: #e2dfd9;
+}
+
+.homepage-search h2,
+.homepage-stats {
+    font-weight: normal;
 }

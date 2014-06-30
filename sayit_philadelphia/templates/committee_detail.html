@@ -14,7 +14,7 @@
     but currently no membership is current.
   {% endcomment %}
 
-<div class="small-12 medium-6 columns">
+<div class="small-12 medium-8 columns">
   <h2>Members</h2>
   <ul class="speaker-list-list">
     {% for member in members %}
@@ -32,9 +32,9 @@
   </ul>
 </div>
 
-<div class="small-12 medium-6 columns">
+<div class="small-12 medium-4 columns">
   <h2>Meetings</h2>
-  <ul>
+  <ul class="unstyled-list">
     {% for meeting in section.get_children %}
       <li>
           <a href="{{ meeting.get_absolute_url }}">{{ meeting.title }}</a>
