@@ -22,7 +22,7 @@ find . -name '*.pyc' -delete
 ./manage.py migrate
 
 # Install gems in order to compile the CSS
-export GEM_HOME="../gems"
+export GEM_HOME="$(cd ../gems && pwd -P)"
 mkdir -p "$GEM_HOME"
 export PATH="$GEM_HOME/bin:$PATH"
 gem install --conservative --no-ri --no-rdoc sass -v 3.2.14
