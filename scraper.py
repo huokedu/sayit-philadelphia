@@ -147,12 +147,13 @@ class PhilaParser(BaseParser):
             except ScrapingError:
                 print "SKIPPING {} - error downloading".format(url)
             else:
-                yield {
-                    'date': date,
-                    'url': url,
-                    'text': text,
-                    'committee_name': committee_name,
-                    }
+                if text:
+                    yield {
+                        'date': date,
+                        'url': url,
+                        'text': text,
+                        'committee_name': committee_name,
+                        }
 
     def top_section_title(self, data):
         return '{date}'.format(
