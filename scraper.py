@@ -55,6 +55,18 @@ class PhilaParser(BaseParser):
             type='int',
             )
         self.parser.add_option(
+            '--current-year',
+            dest='current_year',
+            help='Search for the current calendar year.',
+            action='store_true',
+            )
+        self.parser.add_option(
+            '--last-year',
+            dest='last_year',
+            help='Search for the previous calender year.',
+            action='store_true',
+            )
+        self.parser.add_option(
             '--month',
             dest='month',
             help='Month to search for',
@@ -86,7 +98,13 @@ class PhilaParser(BaseParser):
     def _process_parser_options(self):
         super(PhilaParser, self)._process_parser_options()
 
-        self.year = self.options.year
+        if self.options.current_year:
+            self.year = datetime.datetime.now().year
+        elif self.options.last_year:
+            self.year = datetime.datetime.now().year - 1
+        else:
+            self.year = self.options.year
+
         self.month = self.options.month
         self.day = self.options.day
 
