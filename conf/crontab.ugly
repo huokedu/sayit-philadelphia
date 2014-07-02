@@ -1,0 +1,9 @@
+# crontab.ugly:
+# Timed tasks for Sayit Philadelphia. Template file.
+
+MAILTO=cron-!!(*= $site *)!!@mysociety.org
+
+15 5 * * * !!(*= $user *)!! /data/vhost/!!(*= $vhost *)!!/virtualenv-sayit_philadelphia/bin/python /data/vhost/!!(*= $vhost *)!!/sayit-philadelphia/scraper.py --index-url http://legislation.phila.gov/council-transcriptroom/transroom_committee.aspx --current-year --commit --committee-name Education
+30 5 * * * !!(*= $user *)!! /data/vhost/!!(*= $vhost *)!!/virtualenv-sayit_philadelphia/bin/python /data/vhost/!!(*= $vhost *)!!/sayit-philadelphia/scraper.py --index-url http://legislation.phila.gov/council-transcriptroom/transroom_committee.aspx --last-year --commit --committee-name Education
+45 5 * * * !!(*= $user *)!! /data/vhost/!!(*= $vhost *)!!/virtualenv-sayit_philadelphia/bin/python /data/vhost/!!(*= $vhost *)!!/sayit-philadelphia/scraper.py --index-url http://legislation.phila.gov/council-transcriptroom/transroom_date.aspx --current-year --commit
+0 6 * * * !!(*= $user *)!! /data/vhost/!!(*= $vhost *)!!/virtualenv-sayit_philadelphia/bin/python /data/vhost/!!(*= $vhost *)!!/sayit-philadelphia/scraper.py --index-url http://legislation.phila.gov/council-transcriptroom/transroom_date.aspx --last-year --commit
