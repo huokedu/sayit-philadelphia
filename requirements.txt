@@ -8,3 +8,4 @@ popit-django==0.0.3
 # Scrapers
 beautifulsoup4
 requests_cache
+lxml

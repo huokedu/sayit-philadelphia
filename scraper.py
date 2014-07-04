@@ -123,7 +123,7 @@ class PhilaParser(BaseParser):
     def get_transcripts(self):
         get_resp = self.requests.get(self.index_url)
 
-        soup = bs4.BeautifulSoup(get_resp.content)
+        soup = bs4.BeautifulSoup(get_resp.content, "lxml")
         form = soup.find('form', id='Form1')
 
         # FIXME - don't cache the index page.
