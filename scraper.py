@@ -190,6 +190,7 @@ class PhilaParser(BaseParser):
         print "PARSING %s" % data['url']
 
         page, num = 1, 1
+        date = '{d:%B} {d.day}, {d:%Y}'.format(d=data['date'])
 
         speech = None
         state = 'text'
@@ -209,8 +210,11 @@ class PhilaParser(BaseParser):
             # Empty line, or line matching page footer
             if re.match('\s*$', line):
                 continue
-            if re.match(' *Strehlow & Associates, Inc.$| *\(215\) 504-4622$',
+            if re.match(' *(Strehlow & Associates, Inc.$|\(215\) 504-4622$|You created this PDF)(?i)',
                         line):
+                continue
+            # Line matching page header
+            if re.match(' *(Stated Meeting|%s)$' % date, line):
                 continue
 
             # Ignore title page for now
@@ -219,7 +223,7 @@ class PhilaParser(BaseParser):
 
             # Start of certificate/index
             if re.match(
-                    ' *\d+ *(CERTIFICATE|C E R T I F I C A T I O N)$',
+                    ' *(\d+ *)?(CERTIFICATE|C E R T I F I C A T I O N)$',
                     line):
                 state = 'index'
             if state == 'index':
@@ -227,7 +231,7 @@ class PhilaParser(BaseParser):
 
             # Each page starts with page number
             if num == 0:
-                m = re.match(' +(\d+)$', line)
+                m = re.match(' +(?:Page )?(\d+)$', line)
                 assert int(m.group(1)) == page
                 num += 1
                 continue
